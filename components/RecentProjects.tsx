@@ -32,17 +32,10 @@ const RecentProjects = () => {
                 <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
                   <div
                     className="relative w-full h-full overflow-hidden lg:rounded-3xl"
-                    style={{ backgroundColor: "#13162D" }}
+                    style={{ backgroundColor: "#13162D", height: '200px' }}
                   >
-                    <Image src="/bg.png" alt="bgimg" width={100} height={100} />
+                    <Image src={item.img} alt="cover" fill style={{ objectFit: 'cover', transform: 'none' }} />
                   </div>
-                  <Image
-                    src={item.img}
-                    alt="cover"
-                    className="z-10 absolute bottom-0"
-                    width={100}
-                    height={100}
-                  />
                 </div>
 
                 <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
