@@ -224,7 +224,7 @@ export const socialMedia = [
   },
   {
     id: 2,
-    img: "x.png",
+    img: "/x.png",
     link: "https://x.com/Vissal15"
   },
   {

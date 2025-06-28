@@ -32,7 +32,7 @@ export const TextGenerateEffect = ({
         }
       );
     }
-  }, [scope.current, mounted]);
+  }, [scope.current, mounted, animate, wordsArray]);
 
   const renderWords = () => {
     return (
