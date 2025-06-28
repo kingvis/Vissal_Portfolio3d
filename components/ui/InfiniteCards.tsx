@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 export const InfiniteMovingCards = ({
   items,
@@ -115,9 +116,11 @@ export const InfiniteMovingCards = ({
               <div className="relative z-20 mt-6 flex flex-row items-center">
                 {/* add this div for the profile img */}
                 <div className="me-3 w-10 h-10 rounded-full border-2 border-white overflow-hidden flex items-center justify-center">
-                  <img
+                  <Image
                     src={idx === 0 ? "/azure-badge.png" : idx === 1 ? "/github-badge.png" : (idx === 2 || idx === 3) ? "/cognizant-badge.png" : idx === 4 ? "/irjet-badge.png" : idx === 5 ? "/scouts-badge.png" : "/profile.svg"}
                     alt="profile"
+                    width={40}
+                    height={40}
                     className="object-contain w-full h-full"
                   />
                 </div>

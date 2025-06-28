@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 
 // Also install this npm i --save-dev @types/react-lottie
 import Lottie from "react-lottie";
@@ -102,9 +103,11 @@ export const BentoGridItem = ({
           <>
             <div className="w-full h-full absolute">
               {img && (
-                <img
+                <Image
                   src={img}
                   alt={img}
+                  width={100}
+                  height={100}
                   className={cn(imgClassName, "object-cover object-center ")}
                 />
               )}
@@ -113,9 +116,11 @@ export const BentoGridItem = ({
               className={`absolute right-0 -bottom-5 ${id === 5 && "w-full opacity-80"}`}
             >
               {spareImg && (
-                <img
+                <Image
                   src={spareImg}
                   alt={spareImg}
+                  width={100}
+                  height={100}
                   className="object-cover object-center w-full h-full"
                 />
               )}
@@ -139,16 +144,20 @@ export const BentoGridItem = ({
         >
           {/* For id 5, render image as normal child, not absolute */}
           {id === 5 && img && (
-            <img
+            <Image
               src={img}
               alt={img}
+              width={100}
+              height={100}
               className={cn(imgClassName, "object-cover object-center mb-4 w-full max-h-32 rounded-xl")}
             />
           )}
           {id === 5 && spareImg && (
-            <img
+            <Image
               src={spareImg}
               alt={spareImg}
+              width={100}
+              height={100}
               className="object-cover object-center mb-4 w-full max-h-32 rounded-xl"
             />
           )}
