@@ -1,12 +1,25 @@
 import { FaLocationArrow } from "react-icons/fa6";
+import React, { useRef, useState } from "react";
 
 import MagicButton from "./MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
 const Hero = () => {
+  // Torch light effect state
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [mouse, setMouse] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMouse({ x, y });
+  };
+
   return (
-    <div className="pb-20 pt-36">
+    <div className="pb-20 pt-56">
       {/**
        *  UI: Spotlights
        *  Link: https://ui.aceternity.com/components/spotlight
@@ -40,35 +53,60 @@ const Hero = () => {
         />
       </div>
 
-      <div className="flex justify-center relative my-20 z-10">
-        <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
-          <p className="uppercase tracking-widest text-xs text-center text-blue-100 max-w-80">
-            Dynamic Web Magic with Next.js
-          </p>
+      <section
+        ref={heroRef}
+        className="relative w-full min-h-[80vh] flex flex-col items-center justify-center select-none overflow-hidden"
+        onMouseMove={handleMouseMove}
+      >
+        {/* Torch light overlay - more visible */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(circle at ${mouse.x}% ${mouse.y}%, rgba(80,180,255,0.18) 0px, rgba(40,80,180,0.10) 180px, rgba(10,10,20,0.96) 340px)`
+          }}
+        />
+        <div className="flex justify-center relative my-20 z-20">
+          {/* Subtle block grid background */}
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <div className="w-full h-full grid grid-cols-12 grid-rows-6 gap-0 opacity-30">
+              {Array.from({ length: 72 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-transparent rounded-[2px]"
+                  style={{ minHeight: '32px' }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
+            <p className="uppercase tracking-widest text-xs text-center text-blue-100 max-w-80">
+              Dynamic Web Magic By VISSAL
+            </p>
 
-          {/**
-           *  Link: https://ui.aceternity.com/components/text-generate-effect
-           *
-           *  change md:text-6xl, add more responsive code
-           */}
-          <TextGenerateEffect
-            words="Transforming Concepts into Seamless User Experiences"
-            className="text-center text-[40px] md:text-5xl lg:text-6xl"
-          />
-
-          <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
-            Hi! I&apos;m Adrian, a Next.js Developer based in Croatia.
-          </p>
-
-          <a href="#about">
-            <MagicButton
-              title="Show my work"
-              icon={<FaLocationArrow />}
-              position="right"
+            {/**
+             *  Link: https://ui.aceternity.com/components/text-generate-effect
+             *
+             *  change md:text-6xl, add more responsive code
+             */}
+            <TextGenerateEffect
+              words="Transforming Ideas into Intelligent Digital Experiences"
+              className="text-center text-[40px] md:text-5xl lg:text-6xl"
             />
-          </a>
+
+            <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
+              Hi! I'm Visaal, an aspiring AI & ML Developer exploring innovation through technology and data-driven design.
+            </p>
+
+            <a href="#about">
+              <MagicButton
+                title="Show my work"
+                icon={<FaLocationArrow />}
+                position="right"
+              />
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

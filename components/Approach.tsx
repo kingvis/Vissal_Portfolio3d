@@ -13,11 +13,9 @@ const Approach = () => {
       <div className="my-20 flex flex-col lg:flex-row items-center justify-center w-full gap-4">
         {/* add des prop */}
         <Card
-          title="Planning & Strategy"
+          title="Discover & Define"
           icon={<AceternityIcon order="Phase 1" />}
-          des="We'll collaborate to map out your website's goals, target audience, 
-          and key functionalities. We'll discuss things like site structure, 
-          navigation, and content requirements."
+          des="I begin by understanding the problem deeply — whether it's an AI workflow, a web interface, or an automation script. With my academic background in Electronics and Communication and hands-on experience in IT operations and software development, I focus on aligning the solution with real-world needs. We'll identify goals, audience expectations, and choose the most effective tools — from Python and SQL to cloud-based platforms like Microsoft Azure."
         >
           <CanvasRevealEffect
             animationSpeed={5.1}
@@ -26,11 +24,9 @@ const Approach = () => {
           />
         </Card>
         <Card
-          title="Development & Progress Update"
+          title="Develop & Deliver"
           icon={<AceternityIcon order="Phase 2" />}
-          des="Once we agree on the plan, I cue my lofi playlist and dive into
-          coding. From initial sketches to polished code, I keep you updated
-          every step of the way."
+          des="From concept to execution, I prioritize writing clean, scalable code — enhanced by tools like GitHub Copilot for speed and accuracy. Whether I'm building a responsive web page or integrating AI capabilities, my goal is to create intuitive and efficient user experiences. I've led projects (like a food delivery web app) and contributed to automation and system optimization at Cognizant — ensuring quality and timely delivery."
         >
           <CanvasRevealEffect
             animationSpeed={3}
@@ -48,11 +44,9 @@ const Approach = () => {
           {/* <div className="absolute inset-0 [mask-image:radial-gradient(400px_at_center,white,transparent)] bg-black/50 dark:bg-black/90" /> */}
         </Card>
         <Card
-          title="Development & Launch"
+          title="Refine & Reflect"
           icon={<AceternityIcon order="Phase 3" />}
-          des="This is where the magic happens! Based on the approved design, 
-          I'll translate everything into functional code, building your website
-          from the ground up."
+          des="I believe in continuous learning and feedback. My journey includes published research, internships, and awards like Gen AI Supremo (2025) and Americas Team Excellence (2024). Each project I take on is a chance to improve, innovate, and build trust through results. I don't just complete tasks — I strive to add value. If you're looking for someone with technical depth, a learning mindset, and proven initiative — let's build something impactful together."
         >
           <CanvasRevealEffect
             animationSpeed={3}

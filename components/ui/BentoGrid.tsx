@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { IoCopyOutline } from "react-icons/io5";
+import React, { useEffect, useRef } from "react";
 
 // Also install this npm i --save-dev @types/react-lottie
 import Lottie from "react-lottie";
@@ -8,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 
 import { BackgroundGradientAnimation } from "./GradientBg";
-import GridGlobe from "./GridGlobe";
+// import GridGlobe from "./GridGlobe";
 import animationData from "@/data/confetti.json";
 import MagicButton from "../MagicButton";
 
@@ -52,8 +53,8 @@ export const BentoGridItem = ({
   titleClassName?: string;
   spareImg?: string;
 }) => {
-  const leftLists = ["ReactJS", "Express", "Typescript"];
-  const rightLists = ["VueJS", "NuxtJS", "GraphQL"];
+  //const leftLists: string[] = [];
+  //const rightLists: string[] = [];
 
   const [copied, setCopied] = useState(false);
 
@@ -67,7 +68,7 @@ export const BentoGridItem = ({
   };
 
   const handleCopy = () => {
-    const text = "hsu@jsmastery.pro";
+    const text = "vissalv@gmail.com";
     navigator.clipboard.writeText(text);
     setCopied(true);
   };
@@ -75,42 +76,52 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        // remove p-4 rounded-3xl dark:bg-black dark:border-white/[0.2] bg-white  border border-transparent, add border border-white/[0.1] overflow-hidden relative
         "row-span-1 relative overflow-hidden rounded-3xl border border-white/[0.1] group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none justify-between flex flex-col space-y-4",
         className
       )}
       style={{
-        //   add these two
-        //   you can generate the color from here https://cssgradient.io/
         background: "rgb(4,7,29)",
         backgroundColor:
           "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
       }}
     >
-      {/* add img divs */}
+      {/* Video as bottom layer for id 5 */}
+      {id === 5 && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none blur-[3px] brightness-50 opacity-60 rounded-2xl"
+          src="/coding-bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      )}
+      {/* add img divs, but for id 5, do not render image in background/absolute layers */}
       <div className={`${id === 6 && "flex justify-center"} h-full`}>
-        <div className="w-full h-full absolute">
-          {img && (
-            <img
-              src={img}
-              alt={img}
-              className={cn(imgClassName, "object-cover object-center ")}
-            />
-          )}
-        </div>
-        <div
-          className={`absolute right-0 -bottom-5 ${id === 5 && "w-full opacity-80"
-            } `}
-        >
-          {spareImg && (
-            <img
-              src={spareImg}
-              alt={spareImg}
-              //   width={220}
-              className="object-cover object-center w-full h-full"
-            />
-          )}
-        </div>
+        {id !== 5 && (
+          <>
+            <div className="w-full h-full absolute">
+              {img && (
+                <img
+                  src={img}
+                  alt={img}
+                  className={cn(imgClassName, "object-cover object-center ")}
+                />
+              )}
+            </div>
+            <div
+              className={`absolute right-0 -bottom-5 ${id === 5 && "w-full opacity-80"}`}
+            >
+              {spareImg && (
+                <img
+                  src={spareImg}
+                  alt={spareImg}
+                  className="object-cover object-center w-full h-full"
+                />
+              )}
+            </div>
+          </>
+        )}
         {id === 6 && (
           // add background animation , remove the p tag
           <BackgroundGradientAnimation>
@@ -121,51 +132,110 @@ export const BentoGridItem = ({
         <div
           className={cn(
             titleClassName,
-            "group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col px-5 p-5 lg:p-10"
+            id === 5
+              ? "group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col px-5 p-5 lg:p-10 z-10 bg-black/60 rounded-2xl p-6"
+              : "group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col px-5 p-5 lg:p-10 z-20"
           )}
         >
-          {/* change the order of the title and des, font-extralight, remove text-xs text-neutral-600 dark:text-neutral-300 , change the text-color */}
-          <div className="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
-            {description}
-          </div>
-          {/* add text-3xl max-w-96 , remove text-neutral-600 dark:text-neutral-300*/}
-          {/* remove mb-2 mt-2 */}
-          <div
-            className={`font-sans text-lg lg:text-3xl max-w-96 font-bold z-10`}
-          >
-            {title}
-          </div>
-
-          {/* for the github 3d globe */}
-          {id === 2 && <GridGlobe />}
+          {/* For id 5, render image as normal child, not absolute */}
+          {id === 5 && img && (
+            <img
+              src={img}
+              alt={img}
+              className={cn(imgClassName, "object-cover object-center mb-4 w-full max-h-32 rounded-xl")}
+            />
+          )}
+          {id === 5 && spareImg && (
+            <img
+              src={spareImg}
+              alt={spareImg}
+              className="object-cover object-center mb-4 w-full max-h-32 rounded-xl"
+            />
+          )}
+          {id === 3 ? (
+            <div className="relative w-full h-full flex flex-col items-center justify-center">
+              {/* Starfield background */}
+              <StarfieldBackground starCount={40} />
+              {/* Animated horizontal background tags */}
+              <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+                {["Python", "Java", "SQL", "GitHub Copilot", "Amazon Wisp", "AI/ML APIs"].map((item, i, arr) => {
+                  const count = arr.length;
+                  const top = 5 + (i * 90) / (count - 1); // Evenly spaced from 5% to 95% for more vertical space
+                  const duration = i % 2 === 0 ? 10 : 16; // Faster for even-indexed tabs
+                  const delay = i * (16 / count); // Keep delays consistent for spacing
+                  return (
+                    <span
+                      key={i}
+                      className="absolute bg-[#23244a] text-white/90 border border-white/10 shadow px-2 py-1 text-xs md:text-sm rounded-md opacity-40 blur-[1px] animate-horizontal-marquee leading-loose w-max min-w-fit"
+                      style={{
+                        top: `${top}%`,
+                        animationDuration: `${duration}s`,
+                        animationDelay: `${delay}s`
+                      } as React.CSSProperties}
+                    >
+                      {item}
+                    </span>
+                  );
+                })}
+              </div>
+              {/* Main title in foreground */}
+              <div className="relative z-20 font-sans text-lg lg:text-3xl max-w-96 font-bold mb-6 text-white text-center">
+                {title}
+              </div>
+            </div>
+          ) : id === 2 ? (
+            <div className="relative w-full h-full flex flex-col items-center justify-center">
+              {/* Solar system background */}
+              <SolarSystemBackground />
+              {/* Animated horizontal background tags */}
+              <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+                {["Google Gemini", "OpenAI GPT", "Anthropic Claude", "Cursor AI", "Tabnine"].map((item, i, arr) => {
+                  const count = arr.length;
+                  const top = 5 + (i * 90) / (count - 1); // Evenly spaced from 5% to 95% for more vertical space
+                  const duration = i % 2 === 0 ? 10 : 16; // Faster for even-indexed tabs
+                  const delay = i * (16 / count); // Keep delays consistent for spacing
+                  return (
+                    <span
+                      key={i}
+                      className="absolute bg-[#23244a] text-white/90 border border-white/10 shadow px-2 py-1 text-xs md:text-sm rounded-md opacity-40 blur-[1px] animate-horizontal-marquee leading-loose w-max min-w-fit"
+                      style={{
+                        top: `${top}%`,
+                        animationDuration: `${duration}s`,
+                        animationDelay: `${delay}s`
+                      } as React.CSSProperties}
+                    >
+                      {item}
+                    </span>
+                  );
+                })}
+              </div>
+              {/* Main title in foreground */}
+              <div className="relative z-20 font-sans text-lg lg:text-3xl max-w-96 font-bold mb-6 text-white text-center">
+                {title}
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
+                {description}
+              </div>
+              <div
+                className={`font-sans text-lg lg:text-3xl max-w-96 font-bold z-10 mb-4`}
+              >
+                {title}
+              </div>
+            </>
+          )}
 
           {/* Tech stack list div */}
           {id === 3 && (
             <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
               {/* tech stack lists */}
               <div className="flex flex-col gap-3 md:gap-3 lg:gap-8">
-                {leftLists.map((item, i) => (
-                  <span
-                    key={i}
-                    className="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 
-                    lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                  >
-                    {item}
-                  </span>
-                ))}
                 <span className="lg:py-4 lg:px-3 py-4 px-3  rounded-lg text-center bg-[#10132E]"></span>
               </div>
               <div className="flex flex-col gap-3 md:gap-3 lg:gap-8">
                 <span className="lg:py-4 lg:px-3 py-4 px-3  rounded-lg text-center bg-[#10132E]"></span>
-                {rightLists.map((item, i) => (
-                  <span
-                    key={i}
-                    className="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 
-                    lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                  >
-                    {item}
-                  </span>
-                ))}
               </div>
             </div>
           )}
@@ -197,3 +267,55 @@ export const BentoGridItem = ({
     </div>
   );
 };
+
+// Simple starfield animation component
+const StarfieldBackground = ({ starCount = 40 }) => {
+  const stars = useMemo(() => (
+    Array.from({ length: starCount }).map((_, i) => ({
+      width: 1 + Math.random() * 2,
+      height: 1 + Math.random() * 2,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    }))
+  ), [starCount]);
+
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none">
+      {stars.map((star, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-white opacity-40"
+          style={{
+            width: `${star.width}px`,
+            height: `${star.height}px`,
+            left: `${star.left}%`,
+            top: `${star.top}%`,
+            filter: 'blur(0.5px)',
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Simple solar system animation component
+const SolarSystemBackground = () => (
+  <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+    <div className="relative w-40 h-40 md:w-64 md:h-64">
+      {/* Sun */}
+      <div className="absolute left-1/2 top-1/2 w-8 h-8 md:w-12 md:h-12 bg-yellow-300 rounded-full shadow-2xl animate-sun-glow" style={{transform: 'translate(-50%, -50%)'}} />
+      {/* Orbit 1 */}
+      <div className="absolute left-1/2 top-1/2 w-24 h-24 md:w-40 md:h-40 border border-white/10 rounded-full animate-orbit1" style={{transform: 'translate(-50%, -50%)'}}>
+        <div className="absolute w-3 h-3 md:w-4 md:h-4 bg-blue-400 rounded-full left-1/2 top-0" style={{transform: 'translate(-50%, -50%)'}} />
+      </div>
+      {/* Orbit 2 */}
+      <div className="absolute left-1/2 top-1/2 w-36 h-36 md:w-56 md:h-56 border border-white/10 rounded-full animate-orbit2" style={{transform: 'translate(-50%, -50%)'}}>
+        <div className="absolute w-2 h-2 md:w-3 md:h-3 bg-red-400 rounded-full left-1/2 top-0" style={{transform: 'translate(-50%, -50%)'}} />
+      </div>
+      {/* Orbit 3 */}
+      <div className="absolute left-1/2 top-1/2 w-48 h-48 md:w-72 md:h-72 border border-white/10 rounded-full animate-orbit3" style={{transform: 'translate(-50%, -50%)'}}>
+        <div className="absolute w-4 h-4 md:w-5 md:h-5 bg-green-400 rounded-full left-1/2 top-0" style={{transform: 'translate(-50%, -50%)'}} />
+      </div>
+    </div>
+  </div>
+);

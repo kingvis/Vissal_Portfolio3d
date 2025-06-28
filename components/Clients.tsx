@@ -9,8 +9,7 @@ const Clients = () => {
   return (
     <section id="testimonials" className="py-20">
       <h1 className="heading">
-        Kind words from
-        <span className="text-purple"> satisfied clients</span>
+        Milestones That Define My Journey
       </h1>
 
       <div className="flex flex-col items-center max-lg:mt-10">
@@ -26,20 +25,32 @@ const Clients = () => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 md:gap-16 max-lg:mt-10">
-          {companies.map((company) => (
+          {companies.map((company, idx) => (
             <React.Fragment key={company.id}>
-              <div className="flex md:max-w-60 max-w-32 gap-2">
+              <div className="flex md:max-w-60 max-w-32 gap-2 items-center">
                 <img
                   src={company.img}
                   alt={company.name}
-                  className="md:w-10 w-5"
+                  className="md:w-10 w-10 h-10 object-contain"
                 />
-                <img
-                  src={company.nameImg}
-                  alt={company.name}
-                  width={company.id === 4 || company.id === 5 ? 100 : 150}
-                  className="md:w-24 w-20"
-                />
+                {idx === 0 ? (
+                  <span className="text-white font-semibold text-lg md:text-xl">Cursor</span>
+                ) : idx === 1 ? (
+                  <span className="text-white font-semibold text-lg md:text-xl">GitHub Copilot</span>
+                ) : idx === 2 ? (
+                  <span className="text-white font-semibold text-lg md:text-xl">OpenAI</span>
+                ) : idx === 3 ? (
+                  <span className="text-white font-semibold text-lg md:text-xl">Windsurf</span>
+                ) : idx === 4 ? (
+                  <span className="text-white font-semibold text-lg md:text-xl">Gemini</span>
+                ) : (
+                  <img
+                    src={company.nameImg}
+                    alt={company.name}
+                    width={company.id === 4 || company.id === 5 ? 100 : 150}
+                    className="md:w-24 w-20"
+                  />
+                )}
               </div>
             </React.Fragment>
           ))}

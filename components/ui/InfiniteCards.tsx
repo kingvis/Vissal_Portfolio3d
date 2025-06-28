@@ -61,11 +61,11 @@ export const InfiniteMovingCards = ({
   const getSpeed = () => {
     if (containerRef.current) {
       if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
         containerRef.current.style.setProperty("--animation-duration", "40s");
+      } else if (speed === "normal") {
+        containerRef.current.style.setProperty("--animation-duration", "60s");
       } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
+        containerRef.current.style.setProperty("--animation-duration", "120s");
       }
     }
   };
@@ -81,8 +81,7 @@ export const InfiniteMovingCards = ({
       <ul
         ref={scrollerRef}
         className={cn(
-          // change gap-16
-          " flex min-w-full shrink-0 gap-16 py-4 w-max flex-nowrap",
+          "flex min-w-full shrink-0 gap-16 py-4 w-max flex-nowrap pr-20",
           start && "animate-scroll ",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
@@ -115,8 +114,12 @@ export const InfiniteMovingCards = ({
               </span>
               <div className="relative z-20 mt-6 flex flex-row items-center">
                 {/* add this div for the profile img */}
-                <div className="me-3">
-                  <img src="/profile.svg" alt="profile" />
+                <div className="me-3 w-10 h-10 rounded-full border-2 border-white overflow-hidden flex items-center justify-center">
+                  <img
+                    src={idx === 0 ? "/azure-badge.png" : idx === 1 ? "/github-badge.png" : (idx === 2 || idx === 3) ? "/cognizant-badge.png" : idx === 4 ? "/irjet-badge.png" : idx === 5 ? "/scouts-badge.png" : "/profile.svg"}
+                    alt="profile"
+                    className="object-contain w-full h-full"
+                  />
                 </div>
                 <span className="flex flex-col gap-1">
                   {/* change text color, font-normal to font-bold, text-xl */}

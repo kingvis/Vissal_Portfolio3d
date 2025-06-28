@@ -70,9 +70,11 @@
   * {
     @apply border-border !scroll-smooth;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   button {
     @apply active:outline-none;
   }
@@ -82,4 +84,146 @@
   .heading {
     @apply font-bold text-4xl md:text-5xl text-center;
   }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 16s linear infinite;
+}
+
+@keyframes zigzag {
+  0% {
+    left: -30%;
+    transform: translateY(0);
+  }
+
+  20% {
+    transform: translateY(var(--zigzag-amplitude, 20px));
+  }
+
+  40% {
+    transform: translateY(calc(var(--zigzag-amplitude, 20px) * -1));
+  }
+
+  60% {
+    transform: translateY(var(--zigzag-amplitude, 20px));
+  }
+
+  80% {
+    transform: translateY(calc(var(--zigzag-amplitude, 20px) * -1));
+  }
+
+  100% {
+    left: 100%;
+    transform: translateY(0);
+  }
+}
+
+.animate-zigzag {
+  animation-name: zigzag;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+@keyframes horizontal-marquee {
+  0% {
+    left: -30%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-horizontal-marquee {
+  animation-name: horizontal-marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+@keyframes sun-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 24px 8px #fde047, 0 0 60px 16px #fde04744;
+  }
+
+  50% {
+    box-shadow: 0 0 40px 16px #fde047, 0 0 80px 32px #fde04744;
+  }
+}
+
+.animate-sun-glow {
+  animation: sun-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes orbit1 {
+  0% {
+    transform: rotate(0deg) translate(-50%, -50%);
+  }
+
+  100% {
+    transform: rotate(360deg) translate(-50%, -50%);
+  }
+}
+
+.animate-orbit1 {
+  animation: orbit1 6s linear infinite;
+}
+
+@keyframes orbit2 {
+  0% {
+    transform: rotate(0deg) translate(-50%, -50%);
+  }
+
+  100% {
+    transform: rotate(360deg) translate(-50%, -50%);
+  }
+}
+
+.animate-orbit2 {
+  animation: orbit2 10s linear infinite;
+}
+
+@keyframes orbit3 {
+  0% {
+    transform: rotate(0deg) translate(-50%, -50%);
+  }
+
+  100% {
+    transform: rotate(360deg) translate(-50%, -50%);
+  }
+}
+
+.animate-orbit3 {
+  animation: orbit3 16s linear infinite;
+}
+
+@keyframes astronaut-float {
+  0% {
+    transform: translateY(0) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateY(-30px) rotate(8deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+}
+
+.animate-astronaut-float {
+  animation: astronaut-float 6s ease-in-out infinite;
 }
